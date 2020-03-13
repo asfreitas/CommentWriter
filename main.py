@@ -1,39 +1,43 @@
-import tkinter as tk
+from tkinter import *
+from tkinter.ttk import *
 import comments
-
-class CommentWriter(tk.Frame):
+import textbox as tb
+class CommentWriter(Frame):
 
     def __init__(self, master=None):
         super().__init__(master)
 
         self.master = master
-        self.value = tk.StringVar()
-        self.pack()
+        self.value = StringVar()
         self.create_widgets()
         self.create_dropboxes()
+        self.create_namebox()
+
 
     def create_widgets(self):
-        self.commentbox = tk.Text(self)
-        self.commentbox.pack(side="top")
+        self.commentbox = tb.TextBox(self.master)
+        self.commentbox.get_textbox().grid(row=2, column=0)
 
+        #self.quit = Button(self.master, text="QUIT", fg="red",
+       #                       command=self.master.destroy)
+       # self.quit.grid(row=3, column=0)
 
-        self.quit = tk.Button(self, text="QUIT", fg="red",
-                              command=self.master.destroy)
-        self.quit.pack(side="bottom")
+        self.test = Button(self.master, command=lambda: self.commentbox.write_textbox(self.behavior.get(), "male", "Steve"))
+        self.test.grid(row=2, column=1)
 
-        self.test = tk.Button(self, text="Insert", fg="black", command=self.write_textbox)
-        self.test.pack(side="bottom")
 
     def create_dropboxes(self):
-        self.value.set(comments.BEHAVIOR[0])
-        self.behavior = tk.OptionMenu(self, self.value, *comments.BEHAVIOR)
-        self.behavior.pack(side="left")
+        self.behavior = Combobox(self.master, values = comments.behavior, state = "readonly")
+        self.behavior.grid(row=1, column=0)
 
 
-    def write_textbox(self):
-        self.commentbox.insert("end", self.value.get())
+    def create_namebox(self):
+        self.namebox = Label(self.master, text="Name of Student")
+        self.namebox.grid(row=0, column=0, sticky="W")
 
 
-root = tk.Tk()
-app = CommentWriter(master=root)
-app.mainloop()
+if __name__ == "__main__":
+    root = Tk()
+    app = CommentWriter(master=root)
+    app.mainloop()
+

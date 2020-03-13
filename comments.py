@@ -1,1 +1,1 @@
-BEHAVIOR = ["Test 1", "Test 2", "Test 3"]
+behavior = ["[g] [g] is very goood. [g] is doing well in class.", "Test 2", "Test 3"]
